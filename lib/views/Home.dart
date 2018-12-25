@@ -73,8 +73,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         controller: controller,
                         children: boardsTabs.map((board) {
                           return Container(
-                            child: ListView(
-                              children: createThreadListView(board.name),
+                            child: Center(
+                              child: Text("qwe"),
                             ),
                           );
                         }).toList(),
@@ -89,44 +89,36 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
-  createThreadListView(String board) async {
-    List posts = [];
-    List<dynamic> ids = [];
-    dataService.getBoardContent(board).then((response) {
-      var decoded_body = json.decode(response.body);
-      List threads = decoded_body[0]["threads"] as List;
-      createThreadIDList(threads).then((data) {
-        ids = data;
-        print(ids);
-        ids.forEach((id) {
-          dataService.getThread(board, id.toString()).then((response) {
-            var decoded_body = json.decode(response.body);
-            var thread_data = decoded_body["posts"];
-            thread_data = thread_data[0];
-            Thread post = Thread(
-                thread_data["no"],
-                thread_data["now"],
-                thread_data["com"],
-                thread_data["replies"],
-                thread_data["filename"],
-                thread_data["extension"],
-                thread_data["resto"]);
-            posts.add(post);
-          });
-        });
-      });
-    });
-    return posts.toList();
-
-//    threads.forEach((val) {
-//      dataService.getThread(board, val["no"].toString()).then((response) {
-//        var decoded_thread = json.decode(response.body);
-//        decoded_thread = decoded_thread["posts"];
-//        print(decoded_thread);
+//  createThreadListView(String board) async {
+//    List posts = [];
+//    List<dynamic> ids = [];
+//    dataService.getBoardContent(board).then((response) {
+//      var decoded_body = json.decode(response.body);
+//      List threads = decoded_body[0]["threads"] as List;
+//      createThreadIDList(threads).then((data) {
+//        ids = data;
+//        print(ids);
+//        ids.forEach((id) {
+//          dataService.getThread(board, id.toString()).then((response) {
+//            var decoded_body = json.decode(response.body);
+//            var thread_data = decoded_body["posts"];
+//            thread_data = thread_data[0];
+//            Thread post = Thread(
+//                thread_data["no"],
+//                thread_data["now"],
+//                thread_data["com"],
+//                thread_data["replies"],
+//                thread_data["filename"],
+//                thread_data["extension"],
+//                thread_data["resto"]);
+//            posts.add(post);
+//          });
+//        });
 //      });
 //    });
-  }
-
+//    return posts.toList();
+//  }
+//
   Future createThreadIDList(List threads) async {
     List ids = [];
     threads.forEach((thread) {
