@@ -12,6 +12,14 @@ A new Flutter application.
 - [ ] Cached threads.
 - [ ] Functional more menu for each thread.
 - [ ] Prevent refresh with tab change.
+- [x] Post time indicator.
+- [ ] Sort by:
+  - [ ] Post time
+  - [ ] Reply count
+  - [ ] Image count
+- [ ] View:
+  - [ ] Grid view:
+  - [x] List view:
 
 For help getting started with Flutter, view our online
 [documentation](https://flutter.io/).
