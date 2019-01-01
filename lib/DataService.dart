@@ -46,6 +46,9 @@ class DataService {
   }
 
   Future<List> getBoards() async {
+  // here
+    // this is where i get my board list of users
+    //what is board users ?
     List boards = new List();
     var db_connection = await db;
     List rows = await db_connection.rawQuery("SELECT * FROM boards");
@@ -82,6 +85,7 @@ class DataService {
   }
 
   Future getBoardContent(String board) async {
+    // so this is my function gets board content from 4chan
     final response = await http.get('https://a.4cdn.org/${board}/threads.json');
     if (response.statusCode == 200) {
       return response;

@@ -32,7 +32,7 @@ class _BaseState extends State<Base> with SingleTickerProviderStateMixin {
     return WillPopScope(
       onWillPop: () => Future.sync(onWillPop),
       child: Scaffold(
-        backgroundColor: Color(0xff383B36),
+        backgroundColor: Color(0xff202124),
         body: PageView(
           onPageChanged: onPageChanged,
           controller: _pageController,
@@ -44,7 +44,7 @@ class _BaseState extends State<Base> with SingleTickerProviderStateMixin {
         ),
         bottomNavigationBar: BottomAppBar(
           elevation: 0,
-          color: Color(0xff383B36),
+          color: Color(0xff202124),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             height: 56.0,
@@ -110,7 +110,7 @@ class _BaseState extends State<Base> with SingleTickerProviderStateMixin {
                 topLeft: Radius.circular(16.0),
                 topRight: Radius.circular(16.0),
               ),
-              color: Color(0xff383B36),
+              color: Color(0xff202124),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,

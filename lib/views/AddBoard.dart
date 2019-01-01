@@ -33,11 +33,11 @@ class _AddBoardState extends State<AddBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff383B36),
+      backgroundColor: Color(0xff202124),
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        backgroundColor: Color(0xff383B36),
+        backgroundColor: Color(0xff202124),
         title: Text(
           "Add Board",
           style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white),

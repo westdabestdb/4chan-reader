@@ -16,22 +16,27 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool loading = false;
 
   @override
-  void initState() {
+  Future initState() {
     // TODO: implement initState
     super.initState();
-    var i = 0;
+    loadTabs(); // this is the code that loads tabs
+  }
+
+  loadTabs() async {
     setState(() {
-      loading = true;
+      loading = true; // sets loading variable
     });
-    dataService.getBoards().then((boards) {
-      i = boards.length;
-      boardsTabs = boards;
-      controller = TabController(length: i, vsync: this);
-      setState(() {
-        loading = false;
-      });
+    boardsTabs = await dataService.getBoards(); // gets list of boards
+    print(boardsTabs);
+    var i = boardsTabs.length;
+    controller = TabController(length: i, vsync: this);
+    // sets tab controller length
+    setState(() {
+      loading = false; // sets loading false
     });
   }
+
+  loadTabContent() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +45,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         SliverAppBar(
           floating: true,
           pinned: true,
-          backgroundColor: Color(0xff383B36),
+          backgroundColor: Color(0xff202124),
           centerTitle: true,
           title: Text(
             "Reader",
@@ -49,7 +54,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           bottom: loading
               ? PreferredSize(child: Container(), preferredSize: Size(0, 0))
               : TabBar(
-//            isScrollable: boardsTabs.length > 4 ? true : false,
                   isScrollable: true,
                   indicatorColor: Colors.white,
                   indicatorWeight: 2.0,
@@ -72,58 +76,66 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     ? TabBarView(
                         controller: controller,
                         children: boardsTabs.map((board) {
-                          return Container(
-                            child: Center(
-                              child: Text("qwe"),
-                            ),
+                          return FutureBuilder(
+                            future: getThreads(board.name),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.none:
+                                  return new Text('Waiting to start');
+                                case ConnectionState.waiting:
+                                  return new Text('Loading...');
+                                default:
+                                  if (snapshot.hasError) {
+                                    return new Text('Error: ${snapshot.error}');
+                                  } else {
+                                    return ListView.builder(
+                                        itemCount: snapshot.data.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return snapshot.data[index];
+                                        });
+                                  }
+                              }
+                            },
                           );
                         }).toList(),
                       )
-                    : Center(
-                        child: Text(
-                        "Not following any boards",
-                        style: TextStyle(color: Colors.white),
-                      )),
+                    : Center(child: Text("none")), // no boards = none
               )
       ],
     );
   }
 
-//  createThreadListView(String board) async {
-//    List posts = [];
-//    List<dynamic> ids = [];
-//    dataService.getBoardContent(board).then((response) {
-//      var decoded_body = json.decode(response.body);
-//      List threads = decoded_body[0]["threads"] as List;
-//      createThreadIDList(threads).then((data) {
-//        ids = data;
-//        print(ids);
-//        ids.forEach((id) {
-//          dataService.getThread(board, id.toString()).then((response) {
-//            var decoded_body = json.decode(response.body);
-//            var thread_data = decoded_body["posts"];
-//            thread_data = thread_data[0];
-//            Thread post = Thread(
-//                thread_data["no"],
-//                thread_data["now"],
-//                thread_data["com"],
-//                thread_data["replies"],
-//                thread_data["filename"],
-//                thread_data["extension"],
-//                thread_data["resto"]);
-//            posts.add(post);
-//          });
-//        });
-//      });
-//    });
-//    return posts.toList();
-//  }
-//
   Future createThreadIDList(List threads) async {
     List ids = [];
     threads.forEach((thread) {
       ids.add(thread["no"]);
     });
     return ids;
+  }
+
+  Future createThreadCards(String board, List ids) async {
+    List cards = [];
+    for (final id in ids) {
+      print(id);
+      var response = await dataService.getThread(board, id.toString());
+      var decoded_body = json.decode(response.body)["posts"][0];
+      var card = Card(
+        child: Text(decoded_body["com"].toString()),
+      );
+      cards.add(card);
+    }
+    return cards;
+  }
+
+  Future getThreads(String board) async {
+    List c = []; // so this is empty
+    var response = await dataService.getBoardContent(board);
+    var decoded_body = json.decode(response.body);
+    var thread_data = decoded_body[0]["threads"] as List;
+    var ids = await createThreadIDList(thread_data);
+    c = await createThreadCards(board, ids);
+    return c;
   }
 }
