@@ -86,7 +86,8 @@ class DataService {
 
   Future getBoardContent(String board) async {
     // so this is my function gets board content from 4chan
-    final response = await http.get('https://a.4cdn.org/${board}/threads.json');
+//    final response = await http.get('https://a.4cdn.org/${board}/threads.json');
+    final response = await http.get('https://a.4cdn.org/${board}/1.json');
     if (response.statusCode == 200) {
       return response;
     } else {
