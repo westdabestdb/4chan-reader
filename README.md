@@ -25,7 +25,7 @@ A new Flutter application.
 - [ ] Add/Manage Boards:
   - [x] Ability to add boards and save to local storage.
   - [x] Ability to remove boards.
-  - [ ] New board added feedback(toast).
+  - [x] New board added feedback(toast).
   - [ ] Sort boards.
   
 - [ ] Threads:
