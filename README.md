@@ -51,5 +51,9 @@ A new Flutter application.
   - [ ] Dark theme.
   - [ ] Light theme.
 
+- [ ] Fonts:
+  - [x] Rubik
+  
+
 For help getting started with Flutter, view our online
 [documentation](https://flutter.io/).
