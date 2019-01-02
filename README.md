@@ -18,8 +18,8 @@ A new Flutter application.
     - [ ] Post time.
     - [ ] Reply count.
     - [ ] Image count.
-  - [ ] View:
-    - [ ] Grid view:
+  - [x] View:
+    - [x] Card view:
     - [x] List view:
   
 - [ ] Add/Manage Boards:
