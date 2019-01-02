@@ -13,7 +13,7 @@ A new Flutter application.
   - [ ] Cached threads.
   - [ ] Functional more menu for each thread.
   - [ ] Prevent refresh with tab change.
-  - [x] Save scroll location.
+  - [ ] Save scroll location.
   - [x] Post time indicator.
   - [ ] Sort by:
     - [ ] Post time.
