@@ -5,7 +5,7 @@ A new Flutter application.
 ## Getting Started
 
 - [x] Start building the app
-- [ ] Data service:
+- [x] Data service:
   - [x] Async data fetch from 4chan API.
 - [ ] Feed:
   - [x] Feed cards with thread title and image.
@@ -16,8 +16,8 @@ A new Flutter application.
   - [ ] Save scroll location.
   - [x] Post time indicator.
   - [ ] Sort by:
-    - [ ] Post time.
-    - [ ] Reply count.
+    - [x] Post time.
+    - [x] Reply count.
     - [ ] Image count.
   - [x] View:
     - [x] Card view:
